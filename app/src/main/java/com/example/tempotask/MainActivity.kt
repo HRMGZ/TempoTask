@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +39,6 @@ class MainActivity : ComponentActivity() {
             TempotaskTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Hugo")
                     MainScreen()
                 }
 
@@ -46,71 +47,86 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun DefaultPreview() {
     TempotaskTheme {
-        Greeting("Android")
+        MainScreen()
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class) // Para usar el nuevo Material Design 3 (TopAppBar)
 @Composable
 fun MainScreen() {
     // Scaffold básico
     Scaffold(
         topBar = {
-            // Barra de la aplicación
             TopAppBar(
-                title = { Text(text = "Ejemplo") },
-                navigationIcon = {
-                    // Icono de navegación (flecha hacia atrás)
-                    Icon(Icons.Default.ArrowBack, contentDescription = null)
-                },
-                actions = {
-                    // Iconos adicionales en la barra de la aplicación (icono de casa)
-                    Icon(Icons.Default.Home, contentDescription = null)
+                colors = topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+                title = {
+                    Text("Top app bar")
                 }
             )
         },
-        content = {
-            // Contenido principal de la pantalla
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                // Texto
-                Text(
-                    text = "¡Hola, Hugo!"
-                )
-
-                // Imagen(Con un placeholder transparente)
-                Image(
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text =
+                """
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Nulla facilisi. Donec euismod, nisl eget tempor aliquam, 
+                    nunc nisl ultricies nunc, quis aliquam nunc nisl quis 
+                    nunc. Sed euismod, nisl eget tempor aliquam, nunc nisl 
+                    ultricies nunc, quis aliquam nunc nisl quis nunc. Sed 
+                    euismod, nisl eget tempor aliquam, nunc nisl ultricies 
+                    nunc, quis aliquam nunc nisl quis nunc. Sed euismod, nisl 
+                    eget tempor aliquam, nunc nisl ultricies nunc, quis 
+                    aliquam nunc nisl quis nunc. Sed euismod, nisl eget tempor 
+                    aliquam, nunc nisl ultricies nunc, quis aliquam nunc nisl 
+                    quis nunc. Sed euismod, nisl eget tempor aliquam, nunc 
+                    nisl ultricies nunc, quis aliquam nunc nisl quis nunc. Sed 
+                    euismod, nisl eget tempor aliquam, nunc nisl ultricies 
+                    nunc, quis aliquam nunc nisl quis nunc. Sed euismod, nisl 
+                    eget tempor aliquam, nunc nisl ultricies nunc, quis 
+                    aliquam nunc nisl quis nunc. Sed euismod, nisl eget tempor 
+                    aliquam, nunc nisl ultricies nunc, quis aliquam nunc nisl 
+                    quis nunc. Sed euismod, nisl eget tempor aliquam, nunc 
+                    nisl ultricies nunc, quis aliquam nunc nisl quis nunc. Sed 
+                    euismod, nisl eget tempor aliquam, nunc nisl ultricies 
+                    nunc, quis aliquam nunc nisl quis nunc. Sed euismod, nisl 
+                    eget tempor aliquam, nunc nisl ultricies nunc, quis 
+                    aliquam nunc nisl quis nunc. Sed euismod, nisl eget tempor 
+                    aliquam, nunc nisl ultricies nunc, quis aliquam nunc nisl 
+                    quis nunc. Sed euismod, nisl eget tempor aliquam, nunc 
+                    nisl ultricies nunc, quis aliquam nunc nisl quis nunc. Sed
+                """.trimIndent()
+            )
+            Image(
                     painter = painterResource(id = android.R.color.transparent),
                     contentDescription = null,
                     modifier = Modifier
                         .size(100.dp)
                         .padding(16.dp)
-
-                )
-
-                // Lista de elementos
-                LazyColumn {
-                    items(10) {
-                        Text(text = "Elemento $it")
-                    }
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(MaterialTheme.colorScheme.primary)
+            )
+            LazyColumn(content = {
+                items(10) {
+                    Text(
+                        modifier = Modifier.padding(8.dp),
+                        text = "Item $it"
+                    )
                 }
-            }
+            })
+
         }
-    )
+    }
 }
