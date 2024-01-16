@@ -23,6 +23,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +31,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.tempotask.ui.theme.TempotaskTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,6 +60,7 @@ fun DefaultPreview() {
 @OptIn(ExperimentalMaterial3Api::class) // Para usar el nuevo Material Design 3 (TopAppBar)
 @Composable
 fun MainScreen() {
+
     // Scaffold básico
     Scaffold(
         topBar = {
@@ -67,7 +70,7 @@ fun MainScreen() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("Top app bar")
+                    Text("barra de aplicacion")
                 }
             )
         },
@@ -81,43 +84,19 @@ fun MainScreen() {
                 modifier = Modifier.padding(8.dp),
                 text =
                 """
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Nulla facilisi. Donec euismod, nisl eget tempor aliquam, 
-                    nunc nisl ultricies nunc, quis aliquam nunc nisl quis 
-                    nunc. Sed euismod, nisl eget tempor aliquam, nunc nisl 
-                    ultricies nunc, quis aliquam nunc nisl quis nunc. Sed 
-                    euismod, nisl eget tempor aliquam, nunc nisl ultricies 
-                    nunc, quis aliquam nunc nisl quis nunc. Sed euismod, nisl 
-                    eget tempor aliquam, nunc nisl ultricies nunc, quis 
-                    aliquam nunc nisl quis nunc. Sed euismod, nisl eget tempor 
-                    aliquam, nunc nisl ultricies nunc, quis aliquam nunc nisl 
-                    quis nunc. Sed euismod, nisl eget tempor aliquam, nunc 
-                    nisl ultricies nunc, quis aliquam nunc nisl quis nunc. Sed 
-                    euismod, nisl eget tempor aliquam, nunc nisl ultricies 
-                    nunc, quis aliquam nunc nisl quis nunc. Sed euismod, nisl 
-                    eget tempor aliquam, nunc nisl ultricies nunc, quis 
-                    aliquam nunc nisl quis nunc. Sed euismod, nisl eget tempor 
-                    aliquam, nunc nisl ultricies nunc, quis aliquam nunc nisl 
-                    quis nunc. Sed euismod, nisl eget tempor aliquam, nunc 
-                    nisl ultricies nunc, quis aliquam nunc nisl quis nunc. Sed 
-                    euismod, nisl eget tempor aliquam, nunc nisl ultricies 
-                    nunc, quis aliquam nunc nisl quis nunc. Sed euismod, nisl 
-                    eget tempor aliquam, nunc nisl ultricies nunc, quis 
-                    aliquam nunc nisl quis nunc. Sed euismod, nisl eget tempor 
-                    aliquam, nunc nisl ultricies nunc, quis aliquam nunc nisl 
-                    quis nunc. Sed euismod, nisl eget tempor aliquam, nunc 
-                    nisl ultricies nunc, quis aliquam nunc nisl quis nunc. Sed
+                    Texto de prueba
                 """.trimIndent()
             )
-            Image(
-                    painter = painterResource(id = android.R.color.transparent),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .padding(16.dp)
-                        .clip(MaterialTheme.shapes.medium)
-                        .background(MaterialTheme.colorScheme.primary)
-            )
+            AsyncImage(
+        model = "https://pngimg.com/uploads/android_logo/android_logo_PNG27.png",
+        contentDescription = null,
+        modifier = Modifier
+            .fillMaxSize()
+            .graphicsLayer {
+                alpha = 0.5f
+            }
+
+    )
             LazyColumn(content = {
                 items(10) {
                     Text(
@@ -129,4 +108,7 @@ fun MainScreen() {
 
         }
     }
+
+
+
 }
